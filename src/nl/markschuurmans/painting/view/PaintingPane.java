@@ -1,4 +1,6 @@
 package nl.markschuurmans.painting.view;
 
-public class PaintingPane {
+import javafx.scene.layout.Pane;
+
+public class PaintingPane extends Pane {
 }
