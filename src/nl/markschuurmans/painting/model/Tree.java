@@ -6,6 +6,13 @@ public class Tree {
     private double relX;
     private double relY;
 
+    public Tree(TreeSize size, TreeType type, double relX, double relY) {
+        this.size = size;
+        this.type = type;
+        this.relX = relX;
+        this.relY = relY;
+    }
+
     public void move() {}
 
     public TreeSize getSize() {
