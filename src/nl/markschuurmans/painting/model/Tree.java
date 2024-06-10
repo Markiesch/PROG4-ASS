@@ -32,7 +32,6 @@ public class Tree {
     }
 
     public double getFinalScale() {
-        System.out.println(0.018 * getRelY() - 0.8);
         return getSize().getScale() * (0.018 * getRelY() - 0.8);
     }
 }

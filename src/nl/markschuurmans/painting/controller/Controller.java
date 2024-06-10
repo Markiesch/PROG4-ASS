@@ -21,8 +21,8 @@ public class Controller extends Application {
         this.primaryStage = primaryStage;
 
         World world = new World();
-        world.addTree(new Tree(TreeSize.L, TreeType.LEAF, 10, 50));
-        world.addTree(new Tree(TreeSize.XL, TreeType.LEAF, 40, 50));
+        world.addTree(new Tree(TreeSize.L, TreeType.LEAF, 10, 80));
+        world.addTree(new Tree(TreeSize.XL, TreeType.LEAF, 40, 80));
 
         setWorld(world);
 

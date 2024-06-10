@@ -28,7 +28,7 @@ public class PaintingPane extends StackPane {
         contentPane.getChildren().clear();
 
         for (Tree tree : world.getTrees()) {
-            TreePainter treePainter = new LeafTreePainter();
+            TreePainter treePainter = new PineTreePainter();
             Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
             contentPane.getChildren().add(treePane);
         }
@@ -43,8 +43,8 @@ public class PaintingPane extends StackPane {
         VBox.setVgrow(skyPane, Priority.ALWAYS);
         VBox.setVgrow(groundPane, Priority.ALWAYS);
 
-        skyPane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-        groundPane.setBackground(new Background(new BackgroundFill(Color.GOLD, null, null)));
+        skyPane.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, null, null)));
+        groundPane.setBackground(new Background(new BackgroundFill(Color.SANDYBROWN, null, null)));
 
         backgroundPane.getChildren().addAll(skyPane, groundPane);
         getChildren().add(backgroundPane);
