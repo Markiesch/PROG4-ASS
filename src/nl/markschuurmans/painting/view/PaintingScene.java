@@ -8,12 +8,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import nl.markschuurmans.painting.controller.Controller;
-import nl.markschuurmans.painting.model.World;
+import nl.markschuurmans.painting.model.TreeType;
 
 public class PaintingScene extends Scene {
-    public PaintingScene(Controller controller, World world) {
+    private final PaintingPane paintingPane;
+
+    public PaintingScene(Controller controller) {
         super(new Pane());
 
+        paintingPane = new PaintingPane(controller, 800, 600);
 
         Menu fileMenu = new Menu("File");
         MenuItem loadPaintingMenuItem = new MenuItem("load painting...");
@@ -21,8 +24,9 @@ public class PaintingScene extends Scene {
         MenuItem exitMenuItem = new MenuItem("exit");
         fileMenu.getItems().addAll(loadPaintingMenuItem, savePaintingAsMenuItem, exitMenuItem);
 
-        loadPaintingMenuItem.setOnAction(event -> { controller.readWorldFromFile(); });
-        savePaintingAsMenuItem.setOnAction(event -> { controller.saveWorldToFile(); });
+        loadPaintingMenuItem.setOnAction(event -> controller.readWorldFromFile());
+        savePaintingAsMenuItem.setOnAction(event -> controller.saveWorldToFile());
+        exitMenuItem.setOnAction(event -> controller.exit());
 
         Menu treeMenu = new Menu("Tree");
         MenuItem addLeafTreeMenuItem = new MenuItem("add Leaf Tree");
@@ -31,15 +35,25 @@ public class PaintingScene extends Scene {
         MenuItem clearAllTreesMenuItem = new MenuItem("clear all Trees");
         treeMenu.getItems().addAll(addLeafTreeMenuItem, addPineTreeMenuItem, add100TreesMenuItem, clearAllTreesMenuItem);
 
+        addLeafTreeMenuItem.setOnAction(event -> controller.addTree(TreeType.LEAF));
+        addPineTreeMenuItem.setOnAction(event -> controller.addTree(TreeType.LEAF));
+        add100TreesMenuItem.setOnAction(event -> controller.addRandomTrees(100));
+        clearAllTreesMenuItem.setOnAction(event -> controller.clearTrees());
+
         Menu movieMenu = new Menu("Movie");
         CheckMenuItem playMenuItem = new CheckMenuItem("play");
         movieMenu.getItems().add(playMenuItem);
 
-        MenuBar menuBar = new MenuBar();
+        playMenuItem.setOnAction(event -> controller.setPlaying(playMenuItem.isSelected()));
 
+        MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, treeMenu, movieMenu);
 
-        VBox root = new VBox(menuBar, new PaintingPane(world, 800, 600));
+        VBox root = new VBox(menuBar, paintingPane);
         setRoot(root);
+    }
+
+    public void renderWorld() {
+        paintingPane.renderWorld();
     }
 }

@@ -3,15 +3,17 @@ package nl.markschuurmans.painting.view;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import nl.markschuurmans.painting.controller.Controller;
 import nl.markschuurmans.painting.model.Tree;
 import nl.markschuurmans.painting.model.TreeType;
-import nl.markschuurmans.painting.model.World;
 
 public class PaintingPane extends StackPane {
     private final Pane contentPane;
+    private final Controller controller;
 
-    public PaintingPane(World world, double width, double height) {
+    public PaintingPane(Controller controller, double width, double height) {
         super();
+        this.controller = controller;
 
         setPrefSize(width, height);
 
@@ -19,16 +21,13 @@ public class PaintingPane extends StackPane {
         createBackgroundPane();
         getChildren().add(contentPane);
 
-
-        Platform.runLater(() -> {
-            renderWorld(world);
-        });
+        Platform.runLater(this::renderWorld);
     }
 
-    public void renderWorld(World world) {
+    public void renderWorld() {
         contentPane.getChildren().clear();
 
-        for (Tree tree : world.getTrees()) {
+        for (Tree tree : controller.getWorld().getTrees()) {
             TreePainter treePainter = tree.getType() == TreeType.LEAF ? new LeafTreePainter() : new PineTreePainter();
             Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
             contentPane.getChildren().add(treePane);

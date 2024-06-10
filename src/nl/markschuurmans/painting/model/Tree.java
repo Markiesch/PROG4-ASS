@@ -14,7 +14,7 @@ public class Tree {
     }
 
     public void move() {
-        setRelX(getRelX() + 0.001 * getRelY());
+        setRelX(getRelX() + 0.25 * (0.018 * getRelY() - 0.8));
     }
 
     public TreeType getType() {
