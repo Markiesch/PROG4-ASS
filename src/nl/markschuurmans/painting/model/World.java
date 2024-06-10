@@ -1,7 +1,9 @@
 package nl.markschuurmans.painting.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class World {
     private final List<Tree> trees;
@@ -21,7 +23,7 @@ public class World {
     }
 
     public List<Tree> getTrees() {
-        return trees;
+        return trees.stream().sorted(Comparator.comparingDouble(Tree::getRelY)).collect(Collectors.toList());
     }
 
     public void clearTrees() {

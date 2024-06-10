@@ -1,14 +1,14 @@
 package nl.markschuurmans.painting.model;
 
 public class Tree {
-    private final TreeSize size;
     private final TreeType type;
+    private final TreeSize size;
     private double relX;
     private final double relY;
 
-    public Tree(TreeSize size, TreeType type, double relX, double relY) {
-        this.size = size;
+    public Tree(TreeType type, TreeSize size, double relX, double relY) {
         this.type = type;
+        this.size = size;
         this.relX = relX;
         this.relY = relY;
     }
@@ -17,12 +17,12 @@ public class Tree {
         setRelX(getRelX() + 0.001 * getRelY());
     }
 
-    public TreeSize getSize() {
-        return size;
-    }
-
     public TreeType getType() {
         return type;
+    }
+
+    public TreeSize getSize() {
+        return size;
     }
 
     public double getRelX() {

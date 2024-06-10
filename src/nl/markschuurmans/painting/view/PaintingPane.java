@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import nl.markschuurmans.painting.model.Tree;
+import nl.markschuurmans.painting.model.TreeType;
 import nl.markschuurmans.painting.model.World;
 
 public class PaintingPane extends StackPane {
@@ -28,7 +29,7 @@ public class PaintingPane extends StackPane {
         contentPane.getChildren().clear();
 
         for (Tree tree : world.getTrees()) {
-            TreePainter treePainter = new PineTreePainter();
+            TreePainter treePainter = tree.getType() == TreeType.LEAF ? new LeafTreePainter() : new PineTreePainter();
             Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
             contentPane.getChildren().add(treePane);
         }

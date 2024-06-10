@@ -8,7 +8,7 @@ import nl.markschuurmans.painting.model.Tree;
 public class PineTreePainter extends TreePainter {
     private static final double BORDER_WIDTH = 3;
     private static final double STEM_WIDTH = 20;
-    private static final double STEM_OFFSET = 10;
+    private static final double STEM_OFFSET = 50;
     private static final double LEAF_HEIGHT = 180;
     private static final double LEAF_WIDTH = 120;
     private static final double STEM_HEIGHT = 20 + STEM_OFFSET;
@@ -18,8 +18,8 @@ public class PineTreePainter extends TreePainter {
         Pane treePane = new Pane();
 
         treePane.getChildren().addAll(
-                getLeaf(tree),
-                getStem()
+                getStem(),
+                getLeaf(tree)
         );
         return treePane;
     }
@@ -37,6 +37,7 @@ public class PineTreePainter extends TreePainter {
 
         path.setStroke(Color.BLACK);
         path.setStrokeWidth(BORDER_WIDTH);
+        path.setStrokeType(StrokeType.INSIDE);
         path.setFill(tree.getSize().getColor());
 
         return path;

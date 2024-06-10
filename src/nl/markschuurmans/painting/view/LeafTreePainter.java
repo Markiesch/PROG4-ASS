@@ -16,8 +16,8 @@ public class LeafTreePainter extends TreePainter {
         Pane treePane = new Pane();
 
         treePane.getChildren().addAll(
-                getLeaf(tree),
-                getStem()
+                getStem(),
+                getLeaf(tree)
         );
         return treePane;
     }
