@@ -1,15 +1,24 @@
 package nl.markschuurmans.painting.view;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import nl.markschuurmans.painting.controller.Controller;
 import nl.markschuurmans.painting.model.Tree;
 import nl.markschuurmans.painting.model.TreeType;
 
+import java.io.InputStream;
+
 public class PaintingPane extends StackPane {
+    private static final byte AUTHOR_TEXT_SIZE = 40;
+
     private final Pane contentPane;
     private final Controller controller;
+    private final Text authorText;
 
     public PaintingPane(Controller controller, double width, double height) {
         super();
@@ -17,9 +26,21 @@ public class PaintingPane extends StackPane {
 
         setPrefSize(width, height);
 
-        contentPane = new Pane();
         createBackgroundPane();
-        getChildren().add(contentPane);
+
+        contentPane = new Pane();
+
+        BorderPane hAlignment = new BorderPane();
+        hAlignment.setPadding(new Insets(20));
+
+        authorText = new Text("Mark Schuurmans");
+        authorText.setTextAlignment(TextAlignment.RIGHT);
+        refreshAuthorText();
+
+        BorderPane vAlignment = new BorderPane();
+        hAlignment.setRight(vAlignment);
+        vAlignment.setBottom(authorText);
+        getChildren().addAll(contentPane, hAlignment);
 
         Platform.runLater(this::renderWorld);
     }
@@ -32,6 +53,11 @@ public class PaintingPane extends StackPane {
             Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
             contentPane.getChildren().add(treePane);
         }
+    }
+
+    public void refreshAuthorText() {
+        InputStream fontStream = getClass().getResourceAsStream("../resources/fonts/GreatVibes.ttf");
+        authorText.setFont(Font.loadFont(fontStream, AUTHOR_TEXT_SIZE));
     }
 
     private void createBackgroundPane() {

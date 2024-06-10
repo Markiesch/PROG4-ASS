@@ -31,7 +31,6 @@ public class Controller extends Application {
         world.addTree(new Tree(TreeType.LEAF, TreeSize.XL, 40, 80));
 
         primaryStage.setTitle("Mark Schuurmans - Painting");
-        primaryStage.setResizable(false);
         primaryStage.show();
 
         scene = new PaintingScene(this);
@@ -56,7 +55,6 @@ public class Controller extends Application {
     public void setWorld(World world) {
         this.world = world;
         scene.renderWorld();
-
     }
 
     public void saveWorldToFile() {
