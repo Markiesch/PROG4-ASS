@@ -1,10 +1,10 @@
 package nl.markschuurmans.painting.model;
 
 public class Tree {
-    private TreeSize size;
-    private TreeType type;
-    private double relX;
-    private double relY;
+    private final TreeSize size;
+    private final TreeType type;
+    private final double relX;
+    private final double relY;
 
     public Tree(TreeSize size, TreeType type, double relX, double relY) {
         this.size = size;
@@ -19,32 +19,20 @@ public class Tree {
         return size;
     }
 
-    public void setSize(TreeSize size) {
-        this.size = size;
-    }
-
     public TreeType getType() {
         return type;
-    }
-
-    public void setType(TreeType type) {
-        this.type = type;
     }
 
     public double getRelX() {
         return relX;
     }
 
-    public void setRelX(double relX) {
-        this.relX = relX;
-    }
-
     public double getRelY() {
         return relY;
     }
 
-    public void setRelY(double relY) {
-        this.relY = relY;
+    public double getFinalScale() {
+        System.out.println(0.018 * getRelY() - 0.8);
+        return getSize().getScale() * (0.018 * getRelY() - 0.8);
     }
-
 }

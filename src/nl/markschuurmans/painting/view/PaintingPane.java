@@ -1,35 +1,37 @@
 package nl.markschuurmans.painting.view;
 
+import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import nl.markschuurmans.painting.model.Tree;
-import nl.markschuurmans.painting.model.TreeSize;
-import nl.markschuurmans.painting.model.TreeType;
+import nl.markschuurmans.painting.model.World;
 
 public class PaintingPane extends StackPane {
     private final Pane contentPane;
 
-    public PaintingPane() {
+    public PaintingPane(World world, double width, double height) {
         super();
 
+        setPrefSize(width, height);
 
         contentPane = new Pane();
         createBackgroundPane();
         getChildren().add(contentPane);
-        addTree(new LeafTreePainter());
+
+
+        Platform.runLater(() -> {
+            renderWorld(world);
+        });
     }
 
-    public void addTree(TreePainter treePainter) {
-        Tree tree = new Tree(
-                TreeSize.L,
-                TreeType.LEAF,
-                50,
-                10
-        );
+    public void renderWorld(World world) {
+        contentPane.getChildren().clear();
 
-        Pane treePane = treePainter.createTreePane(tree);
-
-        contentPane.getChildren().add(treePane);
+        for (Tree tree : world.getTrees()) {
+            TreePainter treePainter = new LeafTreePainter();
+            Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
+            contentPane.getChildren().add(treePane);
+        }
     }
 
     private void createBackgroundPane() {
@@ -38,7 +40,6 @@ public class PaintingPane extends StackPane {
         Pane skyPane = new Pane();
         Pane groundPane = new Pane();
 
-        // Make panes 50% height
         VBox.setVgrow(skyPane, Priority.ALWAYS);
         VBox.setVgrow(groundPane, Priority.ALWAYS);
 

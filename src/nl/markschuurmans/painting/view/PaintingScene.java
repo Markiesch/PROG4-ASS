@@ -1,12 +1,10 @@
 package nl.markschuurmans.painting.view;
 
 import javafx.scene.Scene;
+import nl.markschuurmans.painting.model.World;
 
 public class PaintingScene extends Scene {
-
-    public PaintingScene(PaintingPane paintingPane) {
-        super(paintingPane);
-
-        paintingPane.setPrefSize(800, 600);
+    public PaintingScene(World world) {
+        super(new PaintingPane(world, 800, 600));
     }
 }
