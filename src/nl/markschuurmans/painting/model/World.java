@@ -13,9 +13,18 @@ public class World {
     public void addTree(Tree tree) {
         trees.add(tree);
     }
-    public void moveTrees() {}
+
+    public void moveTrees() {
+        for (Tree tree : trees) {
+            tree.move();
+        }
+    }
 
     public List<Tree> getTrees() {
         return trees;
+    }
+
+    public void clearTrees() {
+        trees.clear();
     }
 }
