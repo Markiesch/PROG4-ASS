@@ -12,6 +12,7 @@ import model.World;
 import view.PaintingScene;
 
 import java.io.File;
+import java.net.URL;
 
 public class Controller extends Application {
     private WorldUpdater worldUpdater;
@@ -76,6 +77,12 @@ public class Controller extends Application {
 
     public void readWorldFromFile() {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Painting files", "*.painting"));
+
+        URL url = getClass().getResource("../resources/paintings");
+        if (url != null) {
+            fileChooser.setInitialDirectory(new File(url.getPath()));
+        }
 
         File file = fileChooser.showOpenDialog(primaryStage);
 
