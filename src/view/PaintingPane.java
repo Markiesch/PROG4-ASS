@@ -65,14 +65,17 @@ public class PaintingPane extends StackPane {
 
             contentPane.getChildren().add(treePane);
 
-            final int index = i;
-            treePane.setOnDragDetected(event -> {
-                Dragboard db = treePane.startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(Integer.toString(index));
-                db.setContent(content);
-                event.consume();
-            });
+            if (!controller.isPlaying()) {
+                final int index = i;
+                treePane.setOnDragDetected(event -> {
+                    Dragboard db = treePane.startDragAndDrop(TransferMode.MOVE);
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(Integer.toString(index));
+                    db.setContent(content);
+                    event.consume();
+                });
+            }
+
         }
 
         contentPane.setOnDragOver(event -> {
