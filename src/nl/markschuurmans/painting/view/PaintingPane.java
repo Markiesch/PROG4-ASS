@@ -2,6 +2,7 @@ package nl.markschuurmans.painting.view;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -14,7 +15,7 @@ import nl.markschuurmans.painting.model.TreeType;
 import java.io.InputStream;
 
 public class PaintingPane extends StackPane {
-    private static final byte AUTHOR_TEXT_SIZE = 40;
+    private static final byte AUTHOR_TEXT_SIZE = 20;
 
     private final Pane contentPane;
     private final Controller controller;
@@ -35,7 +36,9 @@ public class PaintingPane extends StackPane {
 
         authorText = new Text("Mark Schuurmans");
         authorText.setTextAlignment(TextAlignment.RIGHT);
-        refreshAuthorText();
+
+
+        authorText.setTextOrigin(VPos.BOTTOM);
 
         BorderPane vAlignment = new BorderPane();
         hAlignment.setRight(vAlignment);
@@ -55,8 +58,8 @@ public class PaintingPane extends StackPane {
         }
     }
 
-    public void refreshAuthorText() {
-        InputStream fontStream = getClass().getResourceAsStream("../resources/fonts/GreatVibes.ttf");
+    public void refreshAuthorText(String font) {
+        InputStream fontStream = getClass().getResourceAsStream("../resources/fonts/" + font + ".ttf");
         authorText.setFont(Font.loadFont(fontStream, AUTHOR_TEXT_SIZE));
     }
 

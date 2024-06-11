@@ -1,23 +1,36 @@
 package nl.markschuurmans.painting.view;
 
 import javafx.scene.Scene;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import nl.markschuurmans.painting.controller.Controller;
 import nl.markschuurmans.painting.model.TreeType;
 
 public class PaintingScene extends Scene {
+    private final Controller controller;
     private final PaintingPane paintingPane;
 
     public PaintingScene(Controller controller) {
         super(new Pane());
-
+        this.controller = controller;
         paintingPane = new PaintingPane(controller, 800, 600);
 
+        VBox root = new VBox(getMenuBar(), paintingPane);
+        setRoot(root);
+
+        VBox.setVgrow(paintingPane, Priority.ALWAYS);
+
+        widthProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
+        heightProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
+    }
+
+    public void renderWorld() {
+        paintingPane.renderWorld();
+    }
+
+    private MenuBar getMenuBar() {
         Menu fileMenu = new Menu("File");
         MenuItem loadPaintingMenuItem = new MenuItem("load painting...");
         MenuItem savePaintingAsMenuItem = new MenuItem("save painting as...");
@@ -40,6 +53,25 @@ public class PaintingScene extends Scene {
         add100TreesMenuItem.setOnAction(event -> controller.addRandomTrees(100));
         clearAllTreesMenuItem.setOnAction(event -> controller.clearTrees());
 
+        Menu autographFontMenu = new Menu("Autograph font");
+        RadioMenuItem greatVibesMenuItem = new RadioMenuItem("GreatVibes");
+        RadioMenuItem handdnaMenuItem = new RadioMenuItem("handdna");
+        RadioMenuItem leckerliOneMenuItem = new RadioMenuItem("LeckerliOne");
+
+        ToggleGroup group = new ToggleGroup();
+        greatVibesMenuItem.setToggleGroup(group);
+        handdnaMenuItem.setToggleGroup(group);
+        leckerliOneMenuItem.setToggleGroup(group);
+
+        autographFontMenu.getItems().addAll(greatVibesMenuItem, handdnaMenuItem, leckerliOneMenuItem);
+
+        greatVibesMenuItem.setOnAction(event -> paintingPane.refreshAuthorText("GreatVibes"));
+        handdnaMenuItem.setOnAction(event -> paintingPane.refreshAuthorText("handdna"));
+        leckerliOneMenuItem.setOnAction(event -> paintingPane.refreshAuthorText("LeckerliOne"));
+
+        paintingPane.refreshAuthorText("LeckerliOne");
+        greatVibesMenuItem.setSelected(true);
+
         Menu movieMenu = new Menu("Movie");
         CheckMenuItem playMenuItem = new CheckMenuItem("play");
         movieMenu.getItems().add(playMenuItem);
@@ -47,13 +79,7 @@ public class PaintingScene extends Scene {
         playMenuItem.setOnAction(event -> controller.setPlaying(playMenuItem.isSelected()));
 
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu, treeMenu, movieMenu);
-
-        VBox root = new VBox(menuBar, paintingPane);
-        setRoot(root);
-    }
-
-    public void renderWorld() {
-        paintingPane.renderWorld();
+        menuBar.getMenus().addAll(fileMenu, treeMenu, autographFontMenu, movieMenu);
+        return menuBar;
     }
 }
