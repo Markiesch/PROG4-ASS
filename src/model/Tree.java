@@ -1,4 +1,4 @@
-package nl.markschuurmans.painting.model;
+package model;
 
 public class Tree {
     private final TreeType type;

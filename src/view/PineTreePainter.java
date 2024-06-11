@@ -1,9 +1,9 @@
-package nl.markschuurmans.painting.view;
+package view;
 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import nl.markschuurmans.painting.model.Tree;
+import model.Tree;
 
 public class PineTreePainter extends TreePainter {
     private static final double BORDER_WIDTH = 3;

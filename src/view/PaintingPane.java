@@ -1,4 +1,4 @@
-package nl.markschuurmans.painting.view;
+package view;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -12,9 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import nl.markschuurmans.painting.controller.Controller;
-import nl.markschuurmans.painting.model.Tree;
-import nl.markschuurmans.painting.model.TreeType;
+import controller.Controller;
+import model.Tree;
+import model.TreeType;
 
 import java.io.InputStream;
 import java.util.List;

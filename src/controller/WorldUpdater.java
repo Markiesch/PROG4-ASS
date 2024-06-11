@@ -1,4 +1,4 @@
-package nl.markschuurmans.painting.controller;
+package controller;
 
 import javafx.application.Platform;
 

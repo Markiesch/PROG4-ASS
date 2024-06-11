@@ -1,4 +1,4 @@
-package nl.markschuurmans.painting.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.Comparator;

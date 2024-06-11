@@ -1,8 +1,8 @@
-package nl.markschuurmans.painting.view;
+package view;
 
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
-import nl.markschuurmans.painting.model.Tree;
+import model.Tree;
 
 public abstract class TreePainter {
     /**

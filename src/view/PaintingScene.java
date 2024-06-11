@@ -1,12 +1,12 @@
-package nl.markschuurmans.painting.view;
+package view;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import nl.markschuurmans.painting.controller.Controller;
-import nl.markschuurmans.painting.model.TreeType;
+import controller.Controller;
+import model.TreeType;
 
 public class PaintingScene extends Scene {
     private static final int INITIAL_WIDTH = 800;
@@ -52,7 +52,7 @@ public class PaintingScene extends Scene {
         treeMenu.getItems().addAll(addLeafTreeMenuItem, addPineTreeMenuItem, add100TreesMenuItem, clearAllTreesMenuItem);
 
         addLeafTreeMenuItem.setOnAction(event -> controller.addTree(TreeType.LEAF));
-        addPineTreeMenuItem.setOnAction(event -> controller.addTree(TreeType.LEAF));
+        addPineTreeMenuItem.setOnAction(event -> controller.addTree(TreeType.PINE));
         add100TreesMenuItem.setOnAction(event -> controller.addRandomTrees(100));
         clearAllTreesMenuItem.setOnAction(event -> controller.clearTrees());
 

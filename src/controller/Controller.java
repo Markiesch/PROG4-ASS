@@ -1,15 +1,15 @@
-package nl.markschuurmans.painting.controller;
+package controller;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import nl.markschuurmans.painting.model.Tree;
-import nl.markschuurmans.painting.model.TreeSize;
-import nl.markschuurmans.painting.model.TreeType;
-import nl.markschuurmans.painting.model.World;
-import nl.markschuurmans.painting.view.PaintingScene;
+import model.Tree;
+import model.TreeSize;
+import model.TreeType;
+import model.World;
+import view.PaintingScene;
 
 import java.io.File;
 
@@ -28,12 +28,11 @@ public class Controller extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
+        scene = new PaintingScene(this);
+        primaryStage.setScene(scene);
+
         primaryStage.setTitle("Mark Schuurmans - Painting");
         primaryStage.show();
-
-        scene = new PaintingScene(this);
-        scene.renderWorld();
-        primaryStage.setScene(scene);
 
         // Center the window
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();

@@ -1,9 +1,9 @@
-package nl.markschuurmans.painting.controller;
+package controller;
 
-import nl.markschuurmans.painting.model.Tree;
-import nl.markschuurmans.painting.model.TreeSize;
-import nl.markschuurmans.painting.model.TreeType;
-import nl.markschuurmans.painting.model.World;
+import model.Tree;
+import model.TreeSize;
+import model.TreeType;
+import model.World;
 
 import java.io.*;
 
