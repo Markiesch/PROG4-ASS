@@ -2,13 +2,9 @@ package view;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.StrokeType;
 import model.Tree;
 
 public abstract class TreePainter {

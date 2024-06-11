@@ -8,7 +8,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -112,8 +112,24 @@ public class PaintingPane extends StackPane {
         VBox.setVgrow(skyPane, Priority.ALWAYS);
         VBox.setVgrow(groundPane, Priority.ALWAYS);
 
-        skyPane.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, null, null)));
+        RadialGradient sunGradient = new RadialGradient(
+                0, 0, 150, 1, 200, false, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.YELLOW),
+                new Stop(0.40, Color.YELLOW),
+                new Stop(0.41, Color.rgb(255, 255, 0, 0.7)),
+                new Stop(0.9, Color.TRANSPARENT)
+        );
+        skyPane.setBackground(new Background(new BackgroundFill(sunGradient, null, null)));
         groundPane.setBackground(new Background(new BackgroundFill(Color.SANDYBROWN, null, null)));
+
+
+        LinearGradient linearGradient = new LinearGradient(
+                0, 1, 0, 0, true, CycleMethod.NO_CYCLE,
+                new Stop(0.5, Color.SKYBLUE),
+                new Stop(1, Color.LIGHTBLUE)
+        );
+
+        backgroundPane.setBackground(new Background(new BackgroundFill(linearGradient, null, null)));
 
         backgroundPane.getChildren().addAll(skyPane, groundPane);
         getChildren().add(backgroundPane);
