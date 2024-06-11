@@ -40,6 +40,8 @@ public class Controller extends Application {
         primaryStage.setY((bounds.getHeight() - primaryStage.getHeight()) / 2);
 
         worldUpdater = new WorldUpdater(this);
+
+        getWorld().addTree(new Tree(TreeType.LEAF,TreeSize.L, 50, 100));
     }
 
     public World getWorld() {
