@@ -9,19 +9,22 @@ import nl.markschuurmans.painting.controller.Controller;
 import nl.markschuurmans.painting.model.TreeType;
 
 public class PaintingScene extends Scene {
+    private static final int INITIAL_WIDTH = 800;
+    private static final int INITIAL_HEIGHT = 600;
     private final Controller controller;
     private final PaintingPane paintingPane;
 
     public PaintingScene(Controller controller) {
         super(new Pane());
         this.controller = controller;
-        paintingPane = new PaintingPane(controller, 800, 600);
+        paintingPane = new PaintingPane(controller, INITIAL_WIDTH, INITIAL_HEIGHT);
+        // Make the painting pane grow with the window
+        VBox.setVgrow(paintingPane, Priority.ALWAYS);
 
         VBox root = new VBox(getMenuBar(), paintingPane);
         setRoot(root);
 
-        VBox.setVgrow(paintingPane, Priority.ALWAYS);
-
+        // Refresh the painting when the window is resized
         widthProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
         heightProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
     }

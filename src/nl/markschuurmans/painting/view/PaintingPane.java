@@ -3,6 +3,10 @@ package nl.markschuurmans.painting.view;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -13,6 +17,7 @@ import nl.markschuurmans.painting.model.Tree;
 import nl.markschuurmans.painting.model.TreeType;
 
 import java.io.InputStream;
+import java.util.List;
 
 public class PaintingPane extends StackPane {
     private static final byte AUTHOR_TEXT_SIZE = 20;
@@ -45,17 +50,50 @@ public class PaintingPane extends StackPane {
         vAlignment.setBottom(authorText);
         getChildren().addAll(contentPane, hAlignment);
 
+        hAlignment.setMouseTransparent(true);
+
         Platform.runLater(this::renderWorld);
     }
 
     public void renderWorld() {
         contentPane.getChildren().clear();
 
-        for (Tree tree : controller.getWorld().getTrees()) {
+        List<Tree> trees = controller.getWorld().getTrees();
+        for (int i = 0; i < trees.size(); i++) {
+            Tree tree = trees.get(i);
             TreePainter treePainter = tree.getType() == TreeType.LEAF ? new LeafTreePainter() : new PineTreePainter();
             Pane treePane = treePainter.createTree(this.getLayoutBounds(), tree);
+
             contentPane.getChildren().add(treePane);
+
+            final int index = i;
+            treePane.setOnDragDetected(event -> {
+                Dragboard db = treePane.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(Integer.toString(index));
+                db.setContent(content);
+                event.consume();
+            });
         }
+
+        contentPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != contentPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        contentPane.setOnDragDropped(event -> {
+            int index = Integer.parseInt(event.getDragboard().getString());
+            Tree targetTree = trees.get(index);
+            targetTree.setRelY(Math.max(50, event.getY() / contentPane.getHeight() * 100));
+
+            targetTree.setRelX(event.getX() / contentPane.getWidth() * 100);
+            renderWorld();
+
+            event.setDropCompleted(true);
+            event.consume();
+        });
     }
 
     public void refreshAuthorText(String font) {

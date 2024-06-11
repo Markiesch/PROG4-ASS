@@ -1,7 +1,9 @@
 package nl.markschuurmans.painting.controller;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nl.markschuurmans.painting.model.Tree;
 import nl.markschuurmans.painting.model.TreeSize;
@@ -26,21 +28,26 @@ public class Controller extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        world = new World();
-        world.addTree(new Tree(TreeType.LEAF, TreeSize.L, 10, 80));
-        world.addTree(new Tree(TreeType.LEAF, TreeSize.XL, 40, 80));
-
         primaryStage.setTitle("Mark Schuurmans - Painting");
         primaryStage.show();
 
         scene = new PaintingScene(this);
-        primaryStage.setScene(scene);
         scene.renderWorld();
+        primaryStage.setScene(scene);
+
+        // Center the window
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((bounds.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((bounds.getHeight() - primaryStage.getHeight()) / 2);
 
         worldUpdater = new WorldUpdater(this);
     }
 
     public World getWorld() {
+        if (world == null) {
+            world = new World();
+        }
+
         return world;
     }
 
@@ -98,12 +105,12 @@ public class Controller extends Application {
         scene.renderWorld();
     }
 
-    public void exit() {
-        primaryStage.close();
-    }
-
     @Override
     public void stop() {
         worldUpdater.stop();
+    }
+
+    public void exit() {
+        primaryStage.close();
     }
 }

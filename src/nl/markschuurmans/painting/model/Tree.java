@@ -4,7 +4,7 @@ public class Tree {
     private final TreeType type;
     private final TreeSize size;
     private double relX;
-    private final double relY;
+    private double relY;
 
     public Tree(TreeType type, TreeSize size, double relX, double relY) {
         this.type = type;
@@ -35,6 +35,10 @@ public class Tree {
 
     public double getRelY() {
         return relY;
+    }
+
+    public void setRelY(double relY) {
+        this.relY = relY;
     }
 
     public double getFinalScale() {

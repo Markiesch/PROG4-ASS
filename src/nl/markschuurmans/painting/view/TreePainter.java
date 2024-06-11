@@ -5,8 +5,20 @@ import javafx.scene.layout.Pane;
 import nl.markschuurmans.painting.model.Tree;
 
 public abstract class TreePainter {
+    /**
+     * Create a pane containing the tree.
+     * @param tree The tree to paint
+     * @return The pane containing the tree
+     */
     protected abstract Pane createTreePane(Tree tree);
 
+    /**
+     * Create a pane containing the tree, scaled and positioned according to the tree's properties.
+     *
+     * @param bounds The bounds of the canvas
+     * @param tree The tree to paint
+     * @return The pane containing the tree
+     */
     public Pane createTree(Bounds bounds, Tree tree) {
         Pane treePane = createTreePane(tree);
 
