@@ -42,7 +42,7 @@ public class Controller extends Application {
 
         worldUpdater = new WorldUpdater(this);
 
-        getWorld().addTree(new Tree(TreeType.LEAF,TreeSize.L, 50, 100));
+        getWorld().addTree(new Tree(TreeType.LEAF, TreeSize.L, 50, 100));
     }
 
     public World getWorld() {
@@ -89,7 +89,9 @@ public class Controller extends Application {
         FileIO fileIO = new FileIO();
         World world = fileIO.readFile(file);
 
-        setWorld(world);
+        if (world != null) {
+            setWorld(world);
+        }
     }
 
     public void addTree(TreeType treeType) {
