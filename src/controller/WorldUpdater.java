@@ -21,7 +21,7 @@ public class WorldUpdater implements Runnable {
             if (!controller.isPlaying()) {
                 run();
                 return;
-            };
+            }
             controller.getWorld().moveTrees();
             Platform.runLater(() -> controller.setWorld(controller.getWorld()));
             run();
