@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.paint.Color;
+
 public class Tree {
     private final TreeType type;
     private final TreeSize size;
@@ -14,7 +16,8 @@ public class Tree {
     }
 
     public void move() {
-        setRelX(getRelX() + 0.25 * (0.018 * getRelY() - 0.8));
+        setRelX(getRelX() + 0.25 * getRelYProcent());
+        if (getRelX() > 125) setRelX(-10);
     }
 
     public TreeType getType() {
@@ -41,7 +44,15 @@ public class Tree {
         this.relY = relY;
     }
 
+    private double getRelYProcent() {
+        return 0.018 * getRelY() - 0.8;
+    }
+
     public double getFinalScale() {
-        return getSize().getScale() * (0.018 * getRelY() - 0.8);
+        return getSize().getScale() * getRelYProcent();
+    }
+
+    public Color getColor() {
+        return getType().getColor(getSize());
     }
 }

@@ -1,24 +1,16 @@
 package model;
 
-import javafx.scene.paint.Color;
-
 public enum TreeSize {
-    S(Color.LIME, 0.2),
-    M(Color.LIMEGREEN, 0.4),
-    L(Color.LIGHTGREEN, 0.6),
-    XL(Color.GREEN, 0.8),
-    XXL(Color.DARKGREEN, 1);
+    S(0.2),
+    M(0.4),
+    L(0.6),
+    XL(0.8),
+    XXL(1);
 
-    private final Color color;
     private final double scale;
 
-    TreeSize(Color color, double scale) {
-        this.color = color;
+    TreeSize(double scale) {
         this.scale = scale;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     public double getScale() {

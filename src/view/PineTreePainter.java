@@ -1,16 +1,14 @@
 package view;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import model.Tree;
 
 public class PineTreePainter extends TreePainter {
     private static final double LEAF_HEIGHT = 180;
     private static final double LEAF_WIDTH = 120;
 
     @Override
-    protected Node getTreeLeaf(Tree tree) {
+    protected Shape getTreeLeaf() {
         Path path = new Path();
 
         path.getElements().addAll(
@@ -20,11 +18,9 @@ public class PineTreePainter extends TreePainter {
                 new ClosePath()
         );
 
-
         path.setStroke(Color.BLACK);
         path.setStrokeWidth(BORDER_WIDTH);
         path.setStrokeType(StrokeType.INSIDE);
-        path.setFill(tree.getSize().getColor());
 
         return path;
     }

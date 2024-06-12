@@ -1,10 +1,10 @@
 package view;
 
 import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import model.Tree;
 
 public abstract class TreePainter {
@@ -15,10 +15,9 @@ public abstract class TreePainter {
 
     /**
      * Create a pane containing the tree.
-     * @param tree The tree to paint
      * @return The pane containing the tree
      */
-    protected abstract Node getTreeLeaf(Tree tree);
+    protected abstract Shape getTreeLeaf();
 
     /**
      * Create a pane containing the tree, scaled and positioned according to the tree's properties.
@@ -30,11 +29,17 @@ public abstract class TreePainter {
     public Pane createTree(Bounds bounds, Tree tree) {
         Pane treePane = new Pane();
 
-        Node treeLeaf = getTreeLeaf(tree);
+        Shape treeLeaf = getTreeLeaf();
         treePane.getChildren().addAll(
                 getStem(treeLeaf.getLayoutBounds().getHeight(), treeLeaf.getLayoutBounds().getWidth()),
                 treeLeaf
         );
+
+        Paint gradient = new RadialGradient(0, 0, 0.25, 0, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, tree.getColor().brighter().brighter()),
+                new Stop(0.8, tree.getColor())
+        );
+        treeLeaf.setFill(gradient);
 
         double scale = tree.getFinalScale();
         treePane.setScaleX(scale);

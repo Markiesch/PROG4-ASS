@@ -17,9 +17,7 @@ public class World {
     }
 
     public void moveTrees() {
-        for (Tree tree : trees) {
-            tree.move();
-        }
+        trees.forEach(Tree::move);
     }
 
     public List<Tree> getTrees() {

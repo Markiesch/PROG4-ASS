@@ -16,15 +16,14 @@ public class WorldUpdater implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(1000 / 24);
+            while (true) {
+                Thread.sleep(1000 / 24);
 
-            if (!controller.isPlaying()) {
-                run();
-                return;
+                if (!controller.isPlaying()) continue;
+
+                controller.getWorld().moveTrees();
+                Platform.runLater(() -> controller.setWorld(controller.getWorld()));
             }
-            controller.getWorld().moveTrees();
-            Platform.runLater(() -> controller.setWorld(controller.getWorld()));
-            run();
         } catch (InterruptedException ignored) {
         }
     }

@@ -26,23 +26,21 @@ public class Controller extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public void start(Stage stage) {
+        this.primaryStage = stage;
 
         scene = new PaintingScene(this);
-        primaryStage.setScene(scene);
+        stage.setScene(scene);
 
-        primaryStage.setTitle("Mark Schuurmans - Painting");
-        primaryStage.show();
+        stage.setTitle("Mark Schuurmans - Painting");
+        stage.show();
 
         // Center the window
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX((bounds.getWidth() - primaryStage.getWidth()) / 2);
-        primaryStage.setY((bounds.getHeight() - primaryStage.getHeight()) / 2);
+        stage.setX((bounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((bounds.getHeight() - stage.getHeight()) / 2);
 
         worldUpdater = new WorldUpdater(this);
-
-        getWorld().addTree(new Tree(TreeType.LEAF, TreeSize.L, 50, 100));
     }
 
     public World getWorld() {
