@@ -57,6 +57,7 @@ public class Controller extends Application {
 
     public void setPlaying(boolean isPlaying) {
         this.isPlaying = isPlaying;
+        scene.renderWorld();
     }
 
     public void setWorld(World world) {
