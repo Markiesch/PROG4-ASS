@@ -35,28 +35,28 @@ public abstract class TreePainter {
                 treeLeaf
         );
 
-        Paint gradient = new RadialGradient(0, 0, 0.25, 0, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, tree.getColor().brighter().brighter()),
-                new Stop(0.8, tree.getColor())
-        );
-        treeLeaf.setFill(gradient);
+        treeLeaf.setFill(getLeafGradient(tree.getColor()));
 
         double scale = tree.getFinalScale();
         treePane.setScaleX(scale);
         treePane.setScaleY(scale);
 
-        // Make sure the layout rendered before we calculate the height
-        treePane.layout();
+        double width = treePane.getBoundsInLocal().getWidth();
+        double x = bounds.getWidth() * (tree.getRelX() / 100);
+        treePane.setLayoutX(x - (width * (scale + 1) / 2));
 
-        double actualWidth = treePane.getBoundsInLocal().getWidth() * scale;
-        double boxWidth = treePane.getBoundsInLocal().getWidth();
-        treePane.setLayoutX((bounds.getWidth() * (tree.getRelX() / 100)) - (boxWidth + (actualWidth - boxWidth) / 2));
-
-        double actualHeight = treePane.getBoundsInLocal().getHeight() * scale;
-        double boxHeight = treePane.getBoundsInLocal().getHeight();
-        treePane.setLayoutY((bounds.getHeight() * (tree.getRelY() / 100)) - (boxHeight + (actualHeight - boxHeight) / 2));
+        double height = treePane.getBoundsInLocal().getHeight();
+        double y = (bounds.getHeight() * (tree.getRelY() / 100));
+        treePane.setLayoutY(y - (height * (scale + 1) / 2));
 
         return treePane;
+    }
+
+    private static Paint getLeafGradient(Color color) {
+        return new RadialGradient(0, 0, 0.25, 0, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, color.brighter().brighter()),
+                new Stop(0.8, color)
+        );
     }
 
     protected Rectangle getStem(double leafHeight, double leafWidth) {
