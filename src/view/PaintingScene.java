@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -25,8 +26,8 @@ public class PaintingScene extends Scene {
         setRoot(root);
 
         // Refresh the painting when the window is resized
-        widthProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
-        heightProperty().addListener((observable, oldValue, newValue) -> paintingPane.renderWorld());
+        widthProperty().addListener((obs, o, n) -> Platform.runLater(paintingPane::renderWorld));
+        heightProperty().addListener((obs, o, n) -> Platform.runLater(paintingPane::renderWorld));
     }
 
     public void renderWorld() {
